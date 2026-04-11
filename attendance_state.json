@@ -1,6 +1,6 @@
 {
-  "last_percent": "89.66",
-  "last_checked_at": "2026-04-11 08:03:24",
+  "last_percent": "89.76",
+  "last_checked_at": "2026-04-11 11:00:04",
   "subjects": {
     "Engineering Physics": {
       "held": 32,
@@ -38,9 +38,9 @@
       "percent": "100.0"
     },
     "Engineering Workshop": {
-      "held": 21,
-      "present": 18,
-      "percent": "85.7"
+      "held": 24,
+      "present": 21,
+      "percent": "87.5"
     },
     "Data Structures Lab": {
       "held": 24,
