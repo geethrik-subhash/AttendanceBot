@@ -1,11 +1,11 @@
 {
-  "last_percent": "91.18",
-  "last_checked_at": "2026-04-22 23:35:41",
+  "last_percent": "91.3",
+  "last_checked_at": "2026-04-23 12:10:29",
   "subjects": {
     "Engineering Physics": {
-      "held": 37,
-      "present": 30,
-      "percent": "81.1"
+      "held": 39,
+      "present": 32,
+      "percent": "82.1"
     },
     "Differential Equations & Vector Calculus": {
       "held": 48,
@@ -43,9 +43,9 @@
       "percent": "88.9"
     },
     "Data Structures Lab": {
-      "held": 27,
-      "present": 21,
-      "percent": "77.8"
+      "held": 30,
+      "present": 24,
+      "percent": "80.0"
     },
     "NSS/NCC/Scouts & Guides/Community Service": {
       "held": 9,
