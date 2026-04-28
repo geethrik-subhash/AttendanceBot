@@ -1,6 +1,6 @@
 {
-  "last_percent": "91.67",
-  "last_checked_at": "2026-04-27 21:37:41",
+  "last_percent": "91.74",
+  "last_checked_at": "2026-04-28 07:57:57",
   "subjects": {
     "Engineering Physics": {
       "held": 40,
@@ -8,9 +8,9 @@
       "percent": "82.5"
     },
     "Differential Equations & Vector Calculus": {
-      "held": 51,
-      "present": 47,
-      "percent": "92.2"
+      "held": 52,
+      "present": 48,
+      "percent": "92.3"
     },
     "Basic Electrical and Electronics Engineering": {
       "held": 41,
@@ -23,9 +23,9 @@
       "percent": "92.3"
     },
     "Data Structures": {
-      "held": 40,
-      "present": 38,
-      "percent": "95.0"
+      "held": 41,
+      "present": 39,
+      "percent": "95.1"
     },
     "Engineering Physics Lab": {
       "held": 27,
@@ -48,8 +48,8 @@
       "percent": "80.0"
     },
     "NSS/NCC/Scouts & Guides/Community Service": {
-      "held": 9,
-      "present": 9,
+      "held": 10,
+      "present": 10,
       "percent": "100.0"
     },
     "English Certification Course": {
