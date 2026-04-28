@@ -1,6 +1,6 @@
 {
-  "last_percent": "91.74",
-  "last_checked_at": "2026-04-28 07:57:57",
+  "last_percent": "91.8",
+  "last_checked_at": "2026-04-28 16:22:59",
   "subjects": {
     "Engineering Physics": {
       "held": 40,
@@ -18,9 +18,9 @@
       "percent": "95.1"
     },
     "Engineering Graphics": {
-      "held": 52,
-      "present": 48,
-      "percent": "92.3"
+      "held": 55,
+      "present": 51,
+      "percent": "92.7"
     },
     "Data Structures": {
       "held": 41,
