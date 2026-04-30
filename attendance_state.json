@@ -1,6 +1,6 @@
 {
-  "last_percent": "91.44",
-  "last_checked_at": "2026-04-30 07:55:04",
+  "last_percent": "91.27",
+  "last_checked_at": "2026-04-30 15:30:54",
   "subjects": {
     "Engineering Physics": {
       "held": 42,
@@ -43,9 +43,9 @@
       "percent": "88.9"
     },
     "Data Structures Lab": {
-      "held": 30,
-      "present": 24,
-      "percent": "80.0"
+      "held": 33,
+      "present": 27,
+      "percent": "81.8"
     },
     "NSS/NCC/Scouts & Guides/Community Service": {
       "held": 10,
@@ -53,9 +53,9 @@
       "percent": "100.0"
     },
     "English Certification Course": {
-      "held": 10,
+      "held": 11,
       "present": 8,
-      "percent": "80.0"
+      "percent": "72.7"
     }
   }
 }
