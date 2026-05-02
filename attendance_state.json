@@ -1,6 +1,6 @@
 {
-  "last_percent": "91.43",
-  "last_checked_at": "2026-05-02 06:32:07",
+  "last_percent": "91.54",
+  "last_checked_at": "2026-05-02 11:33:41",
   "subjects": {
     "Engineering Physics": {
       "held": 43,
@@ -8,14 +8,14 @@
       "percent": "79.1"
     },
     "Differential Equations & Vector Calculus": {
-      "held": 54,
-      "present": 50,
-      "percent": "92.6"
+      "held": 55,
+      "present": 51,
+      "percent": "92.7"
     },
     "Basic Electrical and Electronics Engineering": {
-      "held": 43,
-      "present": 41,
-      "percent": "95.3"
+      "held": 44,
+      "present": 42,
+      "percent": "95.5"
     },
     "Engineering Graphics": {
       "held": 55,
@@ -38,9 +38,9 @@
       "percent": "100.0"
     },
     "Engineering Workshop": {
-      "held": 27,
-      "present": 24,
-      "percent": "88.9"
+      "held": 30,
+      "present": 27,
+      "percent": "90.0"
     },
     "Data Structures Lab": {
       "held": 33,
