@@ -1,6 +1,6 @@
 {
-  "last_percent": "91",
-  "last_checked_at": "2026-05-07 09:45:38",
+  "last_percent": "91.06",
+  "last_checked_at": "2026-05-07 18:02:11",
   "subjects": {
     "Engineering Physics": {
       "held": 46,
@@ -43,9 +43,9 @@
       "percent": "90.0"
     },
     "Data Structures Lab": {
-      "held": 33,
-      "present": 27,
-      "percent": "81.8"
+      "held": 36,
+      "present": 30,
+      "percent": "83.3"
     },
     "NSS/NCC/Scouts & Guides/Community Service": {
       "held": 11,
