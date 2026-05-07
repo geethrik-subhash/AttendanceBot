@@ -1,11 +1,11 @@
 {
-  "last_percent": "91.67",
-  "last_checked_at": "2026-05-06 16:12:55",
+  "last_percent": "91",
+  "last_checked_at": "2026-05-07 09:45:38",
   "subjects": {
     "Engineering Physics": {
-      "held": 44,
+      "held": 46,
       "present": 34,
-      "percent": "77.3"
+      "percent": "73.9"
     },
     "Differential Equations & Vector Calculus": {
       "held": 58,
@@ -53,9 +53,9 @@
       "percent": "100.0"
     },
     "English Certification Course": {
-      "held": 11,
+      "held": 12,
       "present": 8,
-      "percent": "72.7"
+      "percent": "66.7"
     }
   }
 }
