@@ -1,11 +1,11 @@
 {
-  "last_percent": "91.29",
-  "last_checked_at": "2026-05-11 03:28:45",
+  "last_percent": "91.36",
+  "last_checked_at": "2026-05-11 09:38:32",
   "subjects": {
     "Engineering Physics": {
-      "held": 46,
-      "present": 34,
-      "percent": "73.9"
+      "held": 47,
+      "present": 35,
+      "percent": "74.5"
     },
     "Differential Equations & Vector Calculus": {
       "held": 61,
@@ -18,9 +18,9 @@
       "percent": "95.8"
     },
     "Engineering Graphics": {
-      "held": 60,
-      "present": 56,
-      "percent": "93.3"
+      "held": 62,
+      "present": 58,
+      "percent": "93.5"
     },
     "Data Structures": {
       "held": 46,
