@@ -1,11 +1,11 @@
 {
-  "last_percent": "91.59",
-  "last_checked_at": "2026-05-14 03:23:21",
+  "last_percent": "91.18",
+  "last_checked_at": "2026-05-14 08:37:17",
   "subjects": {
     "Engineering Physics": {
-      "held": 47,
+      "held": 49,
       "present": 35,
-      "percent": "74.5"
+      "percent": "71.4"
     },
     "Differential Equations & Vector Calculus": {
       "held": 63,
