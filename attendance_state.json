@@ -1,6 +1,6 @@
 {
-  "last_percent": "90.4",
-  "last_checked_at": "2026-05-15 08:48:44",
+  "last_percent": "90.47",
+  "last_checked_at": "2026-05-15 11:21:33",
   "subjects": {
     "Engineering Physics": {
       "held": 49,
@@ -28,8 +28,8 @@
       "percent": "95.8"
     },
     "Engineering Physics Lab": {
-      "held": 33,
-      "present": 33,
+      "held": 36,
+      "present": 36,
       "percent": "100.0"
     },
     "Electrical and Electronics Engineering Workshop": {
