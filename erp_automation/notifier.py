@@ -11,7 +11,6 @@ def send_telegram_message(message: str) -> bool:
         return False
 
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-
     payload = {
         "chat_id": TELEGRAM_CHAT_ID,
         "text": message,
@@ -34,10 +33,8 @@ def _status_icon(percent_text: str) -> str:
 
     if value >= 90:
         return "🟢"
-
     if value >= 75:
         return "🟡"
-
     return "🔴"
 
 
@@ -63,39 +60,20 @@ def build_attendance_update_message(
         )
 
     lines.extend(["", "====================", ""])
-
-    if no_new_classes:
-        lines.append("➖ No new classes")
-    else:
-        lines.append("🆕 TODAY'S CLASS UPDATES")
+    lines.append("➖ No new classes" if no_new_classes else "✅ New class data found")
 
     if class_updates:
         lines.append("")
-
+        lines.append("🆕 Updated classes:")
         for update in class_updates:
             subject = update["subject"]
-
             held_before = update["held_before"]
             held_after = update["held_after"]
-
             present_before = update["present_before"]
             present_after = update["present_after"]
-
-            new_classes = held_after - held_before
-            attended_classes = present_after - present_before
-
-            if attended_classes == new_classes:
-                icon = "🟢"
-                status = "✅ Attended"
-            elif attended_classes == 0:
-                icon = "🔴"
-                status = "❌ Absent"
-            else:
-                icon = "🟡"
-                status = f"⚠️ Attended {attended_classes}/{new_classes}"
-
-            lines.append(f"{icon} {subject}")
-            lines.append(f"➕ New: {new_classes} | {status}")
-            lines.append("")
+            change = update["change"]
+            lines.append(
+                f"• {subject} ({change}) Held: {held_before}->{held_after}, Present: {present_before}->{present_after}"
+            )
 
     return "\n".join(lines)
