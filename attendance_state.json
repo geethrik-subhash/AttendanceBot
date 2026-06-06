@@ -1,61 +1,61 @@
 {
-  "last_percent": "90.5",
-  "last_checked_at": "2026-06-02 03:55:02",
+  "last_percent": "90.98",
+  "last_checked_at": "2026-06-06 16:36:52",
   "subjects": {
     "Engineering Physics": {
-      "held": 51,
-      "present": 37,
-      "percent": "72.5"
+      "held": 55,
+      "present": 40,
+      "percent": "72.7"
     },
     "Differential Equations & Vector Calculus": {
-      "held": 66,
-      "present": 62,
-      "percent": "93.9"
+      "held": 71,
+      "present": 67,
+      "percent": "94.4"
     },
     "Basic Electrical and Electronics Engineering": {
-      "held": 52,
-      "present": 49,
-      "percent": "94.2"
+      "held": 54,
+      "present": 51,
+      "percent": "94.4"
     },
     "Engineering Graphics": {
-      "held": 67,
-      "present": 63,
-      "percent": "94.0"
+      "held": 70,
+      "present": 66,
+      "percent": "94.3"
     },
     "Data Structures": {
-      "held": 49,
-      "present": 47,
-      "percent": "95.9"
+      "held": 57,
+      "present": 55,
+      "percent": "96.5"
     },
     "Engineering Physics Lab": {
-      "held": 36,
-      "present": 36,
+      "held": 39,
+      "present": 39,
       "percent": "100.0"
     },
     "Electrical and Electronics Engineering Workshop": {
-      "held": 42,
-      "present": 42,
+      "held": 45,
+      "present": 45,
       "percent": "100.0"
     },
     "Engineering Workshop": {
-      "held": 36,
-      "present": 33,
-      "percent": "91.7"
+      "held": 39,
+      "present": 36,
+      "percent": "92.3"
     },
     "Data Structures Lab": {
-      "held": 39,
-      "present": 30,
-      "percent": "76.9"
+      "held": 42,
+      "present": 33,
+      "percent": "78.6"
     },
     "NSS/NCC/Scouts & Guides/Community Service": {
-      "held": 12,
-      "present": 12,
+      "held": 13,
+      "present": 13,
       "percent": "100.0"
     },
     "English Certification Course": {
-      "held": 13,
-      "present": 8,
-      "percent": "61.5"
+      "held": 14,
+      "present": 9,
+      "percent": "64.3"
     }
   }
 }
