@@ -168,7 +168,8 @@ def fetch_overall_attendance() -> Dict[str, object]:
         page = context.new_page()
 
         try:
-            page.goto(ERP_LOGIN_URL, timeout=45000, wait_until="domcontentloaded")
+            print("Opening login page...")
+            page.goto(ERP_LOGIN_URL, timeout=60000, wait_until="networkidle")
 
             user_ok = _fill_first(
                 page,
@@ -179,6 +180,7 @@ def fetch_overall_attendance() -> Dict[str, object]:
                 ],
                 ERP_USERNAME,
             )
+
             pass_ok = _fill_first(
                 page,
                 [
@@ -190,21 +192,34 @@ def fetch_overall_attendance() -> Dict[str, object]:
             )
 
             if not user_ok or not pass_ok:
-                raise RuntimeError("Login fields were not found on ERP login page.")
+                raise RuntimeError(
+                    "Login fields were not found on ERP login page."
+                )
 
             clicked = _click_first(
                 page,
                 [
                     "button:has-text('Login')",
+                    "button:has-text('Sign In')",
                     "input[type='submit']",
                     "text=Login",
                 ],
             )
+
             if not clicked:
                 page.keyboard.press("Enter")
 
-            page.wait_for_timeout(3000)
-            page.goto(ERP_ATTENDANCE_URL, timeout=45000, wait_until="domcontentloaded")
+            print("Waiting after login...")
+            page.wait_for_timeout(5000)
+
+            print("Opening attendance page...")
+            page.goto(
+                ERP_ATTENDANCE_URL,
+                timeout=60000,
+                wait_until="networkidle"
+            )
+
+            page.wait_for_timeout(5000)
 
             _click_first(
                 page,
@@ -215,17 +230,76 @@ def fetch_overall_attendance() -> Dict[str, object]:
                     "text=attandance",
                 ],
             )
-            page.wait_for_timeout(2500)
+
+            page.wait_for_timeout(5000)
+
+            try:
+                page.wait_for_load_state("networkidle", timeout=30000)
+            except Exception:
+                pass
+
+            print("=" * 60)
+            print("CURRENT URL:")
+            print(page.url)
+            print("=" * 60)
+
+            try:
+                page.screenshot(
+                    path="attendance_debug.png",
+                    full_page=True
+                )
+                print("Screenshot saved: attendance_debug.png")
+            except Exception as e:
+                print("Screenshot failed:", e)
+
+            body_text = page.locator("body").inner_text()
+
+            print("=" * 60)
+            print("BODY PREVIEW")
+            print("=" * 60)
+            print(body_text[:5000])
+
+            try:
+                table_count = page.locator("table").count()
+                print("=" * 60)
+                print(f"TABLE COUNT: {table_count}")
+                print("=" * 60)
+            except Exception as e:
+                print("Could not count tables:", e)
 
             subjects = _extract_subject_rows(page)
-            body_text = page.locator("body").inner_text()
+
+            print("=" * 60)
+            print(f"SUBJECTS FOUND: {len(subjects)}")
+            print(subjects)
+            print("=" * 60)
+
+            percent = None
+
             try:
                 percent = _extract_attendance_percent(body_text)
-            except RuntimeError:
-                percent = _calculate_overall_percent_from_subjects(subjects)
-            source = page.url
+                print("Attendance extracted from page:", percent)
+            except Exception as e:
+                print("Direct extraction failed:", e)
 
-            return {"percent": percent, "source": source, "subjects": subjects}
+            if not percent:
+                try:
+                    percent = _calculate_overall_percent_from_subjects(subjects)
+                    print("Attendance calculated from subjects:", percent)
+                except Exception as e:
+                    print("Calculation from subjects failed:", e)
+
+            if not percent:
+                raise RuntimeError(
+                    "Could not determine attendance. Check BODY PREVIEW and screenshot."
+                )
+
+            return {
+                "percent": percent,
+                "source": page.url,
+                "subjects": subjects,
+            }
+
         finally:
             context.close()
             browser.close()
