@@ -1,6 +1,6 @@
 {
-  "last_percent": "90",
-  "last_checked_at": "2026-06-11 22:50:15",
+  "last_percent": "90.02",
+  "last_checked_at": "2026-06-12 03:54:15",
   "subjects": {
     "Engineering Physics": {
       "held": 58,
@@ -13,9 +13,9 @@
       "percent": "93.2"
     },
     "Basic Electrical and Electronics Engineering": {
-      "held": 56,
-      "present": 53,
-      "percent": "94.6"
+      "held": 57,
+      "present": 54,
+      "percent": "94.7"
     },
     "Engineering Graphics": {
       "held": 75,
