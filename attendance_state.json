@@ -1,11 +1,11 @@
 {
-  "last_percent": "90.21",
-  "last_checked_at": "2026-06-13 03:39:12",
+  "last_percent": "90.19",
+  "last_checked_at": "2026-06-13 08:58:02",
   "subjects": {
     "Engineering Physics": {
-      "held": 58,
+      "held": 59,
       "present": 41,
-      "percent": "70.7"
+      "percent": "69.5"
     },
     "Differential Equations & Vector Calculus": {
       "held": 76,
@@ -13,9 +13,9 @@
       "percent": "93.4"
     },
     "Basic Electrical and Electronics Engineering": {
-      "held": 58,
-      "present": 55,
-      "percent": "94.8"
+      "held": 59,
+      "present": 56,
+      "percent": "94.9"
     },
     "Engineering Graphics": {
       "held": 75,
@@ -23,13 +23,13 @@
       "percent": "90.7"
     },
     "Data Structures": {
-      "held": 61,
-      "present": 59,
-      "percent": "96.7"
+      "held": 62,
+      "present": 60,
+      "percent": "96.8"
     },
     "Engineering Physics Lab": {
-      "held": 39,
-      "present": 39,
+      "held": 42,
+      "present": 42,
       "percent": "100.0"
     },
     "Electrical and Electronics Engineering Workshop": {
@@ -43,9 +43,9 @@
       "percent": "93.3"
     },
     "Data Structures Lab": {
-      "held": 42,
-      "present": 33,
-      "percent": "78.6"
+      "held": 45,
+      "present": 36,
+      "percent": "80.0"
     },
     "NSS/NCC/Scouts & Guides/Community Service": {
       "held": 14,
