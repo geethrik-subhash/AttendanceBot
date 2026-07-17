@@ -1,6 +1,6 @@
 {
-  "last_percent": "25",
-  "last_checked_at": "2026-07-17 02:33:05",
+  "last_percent": "33.33",
+  "last_checked_at": "2026-07-17 05:42:31",
   "subjects": {
     "Digital Logic& Computer Organization": {
       "held": 3,
@@ -18,6 +18,11 @@
       "percent": "25.0"
     },
     "Advanced Data Structures & Algorithm Analysis Lab": {
+      "held": 3,
+      "present": 3,
+      "percent": "100.0"
+    },
+    "Object Oriented Programming Through Java Lab": {
       "held": 3,
       "present": 3,
       "percent": "100.0"
