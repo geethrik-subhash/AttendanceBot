@@ -1,11 +1,11 @@
 {
-  "last_percent": "42.86",
-  "last_checked_at": "2026-07-21 05:50:04",
+  "last_percent": "46.67",
+  "last_checked_at": "2026-07-21 08:26:45",
   "subjects": {
     "Discrete Mathematics & Graph Theory": {
-      "held": 4,
-      "present": 2,
-      "percent": "50.0"
+      "held": 5,
+      "present": 3,
+      "percent": "60.0"
     },
     "UHV 2 \u2013 understanding harmony and Ethical human conduct": {
       "held": 6,
@@ -13,14 +13,14 @@
       "percent": "16.7"
     },
     "Digital Logic& Computer Organization": {
-      "held": 4,
-      "present": 2,
-      "percent": "50.0"
+      "held": 5,
+      "present": 3,
+      "percent": "60.0"
     },
     "Advanced Data Structures & Algorithm Analysis": {
-      "held": 7,
-      "present": 4,
-      "percent": "57.1"
+      "held": 8,
+      "present": 5,
+      "percent": "62.5"
     },
     "Object Oriented Programming Through Java": {
       "held": 6,
