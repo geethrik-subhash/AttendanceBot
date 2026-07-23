@@ -1,6 +1,6 @@
 {
-  "last_percent": "50.91",
-  "last_checked_at": "2026-07-23 05:53:03",
+  "last_percent": "51.79",
+  "last_checked_at": "2026-07-23 08:28:26",
   "subjects": {
     "Discrete Mathematics & Graph Theory": {
       "held": 5,
@@ -13,9 +13,9 @@
       "percent": "28.6"
     },
     "Digital Logic& Computer Organization": {
-      "held": 5,
-      "present": 3,
-      "percent": "60.0"
+      "held": 6,
+      "present": 4,
+      "percent": "66.7"
     },
     "Advanced Data Structures & Algorithm Analysis": {
       "held": 9,
