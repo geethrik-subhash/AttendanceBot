@@ -1,6 +1,6 @@
 {
-  "last_percent": "58.46",
-  "last_checked_at": "2026-07-25 13:23:38",
+  "last_percent": "59.09",
+  "last_checked_at": "2026-07-25 16:04:15",
   "subjects": {
     "Discrete Mathematics & Graph Theory": {
       "held": 6,
@@ -38,9 +38,9 @@
       "percent": "100.0"
     },
     "Python Programming": {
-      "held": 7,
-      "present": 3,
-      "percent": "42.9"
+      "held": 8,
+      "present": 4,
+      "percent": "50.0"
     },
     "ASSOCIATION": {
       "held": 4,
