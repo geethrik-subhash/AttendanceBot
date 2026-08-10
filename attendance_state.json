@@ -1,6 +1,6 @@
 {
-  "last_percent": "73.05",
-  "last_checked_at": "2026-08-10 10:15:53",
+  "last_percent": "73.61",
+  "last_checked_at": "2026-08-10 15:59:18",
   "subjects": {
     "Discrete Mathematics & Graph Theory": {
       "held": 15,
@@ -13,9 +13,9 @@
       "percent": "63.2"
     },
     "Digital Logic& Computer Organization": {
-      "held": 12,
-      "present": 10,
-      "percent": "83.3"
+      "held": 13,
+      "present": 11,
+      "percent": "84.6"
     },
     "Advanced Data Structures & Algorithm Analysis": {
       "held": 21,
@@ -38,9 +38,9 @@
       "percent": "100.0"
     },
     "Python Programming": {
-      "held": 15,
-      "present": 11,
-      "percent": "73.3"
+      "held": 16,
+      "present": 12,
+      "percent": "75.0"
     },
     "ASSOCIATION": {
       "held": 8,
@@ -53,9 +53,9 @@
       "percent": "75.0"
     },
     "Quantitative Aptitude": {
-      "held": 4,
-      "present": 3,
-      "percent": "75.0"
+      "held": 5,
+      "present": 4,
+      "percent": "80.0"
     }
   }
 }
