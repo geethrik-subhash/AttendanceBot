@@ -1,11 +1,11 @@
 {
-  "last_percent": "73.84",
-  "last_checked_at": "2026-08-17 09:40:30",
+  "last_percent": "73.56",
+  "last_checked_at": "2026-08-17 15:23:51",
   "subjects": {
     "Discrete Mathematics & Graph Theory": {
-      "held": 17,
+      "held": 18,
       "present": 13,
-      "percent": "76.5"
+      "percent": "72.2"
     },
     "UHV 2 \u2013 understanding harmony and Ethical human conduct": {
       "held": 22,
@@ -53,9 +53,9 @@
       "percent": "80.0"
     },
     "Quantitative Aptitude": {
-      "held": 5,
-      "present": 4,
-      "percent": "80.0"
+      "held": 6,
+      "present": 5,
+      "percent": "83.3"
     }
   }
 }
