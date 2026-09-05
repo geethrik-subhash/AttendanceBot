@@ -1,6 +1,6 @@
 {
-  "last_percent": "77.38",
-  "last_checked_at": "2026-09-05 03:04:01",
+  "last_percent": "77.73",
+  "last_checked_at": "2026-09-05 10:00:16",
   "subjects": {
     "Discrete Mathematics & Graph Theory": {
       "held": 29,
@@ -8,9 +8,9 @@
       "percent": "79.3"
     },
     "UHV 2 \u2013 understanding harmony and Ethical human conduct": {
-      "held": 31,
-      "present": 22,
-      "percent": "71.0"
+      "held": 32,
+      "present": 23,
+      "percent": "71.9"
     },
     "Digital Logic& Computer Organization": {
       "held": 23,
@@ -38,14 +38,14 @@
       "percent": "80.0"
     },
     "Python Programming": {
-      "held": 27,
-      "present": 20,
-      "percent": "74.1"
+      "held": 28,
+      "present": 21,
+      "percent": "75.0"
     },
     "ASSOCIATION": {
-      "held": 12,
-      "present": 10,
-      "percent": "83.3"
+      "held": 14,
+      "present": 12,
+      "percent": "85.7"
     },
     "SELF LEARNING": {
       "held": 8,
