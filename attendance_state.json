@@ -1,6 +1,6 @@
 {
-  "last_percent": "79.95",
-  "last_checked_at": "2026-10-22 03:25:09",
+  "last_percent": "78.87",
+  "last_checked_at": "2026-10-22 11:12:36",
   "subjects": {
     "Discrete Mathematics & Graph Theory": {
       "held": 49,
@@ -13,24 +13,24 @@
       "percent": "78.0"
     },
     "Digital Logic& Computer Organization": {
-      "held": 38,
+      "held": 39,
       "present": 30,
-      "percent": "78.9"
+      "percent": "76.9"
     },
     "Advanced Data Structures & Algorithm Analysis": {
-      "held": 60,
+      "held": 61,
       "present": 45,
-      "percent": "75.0"
+      "percent": "73.8"
     },
     "Object Oriented Programming Through Java": {
-      "held": 63,
-      "present": 48,
-      "percent": "76.2"
+      "held": 65,
+      "present": 49,
+      "percent": "75.4"
     },
     "Advanced Data Structures & Algorithm Analysis Lab": {
-      "held": 39,
+      "held": 42,
       "present": 36,
-      "percent": "92.3"
+      "percent": "85.7"
     },
     "Object Oriented Programming Through Java Lab": {
       "held": 27,
