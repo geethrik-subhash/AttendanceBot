@@ -1,4 +1,5 @@
 import re
+import time
 from typing import Dict, List
 
 from playwright.sync_api import Error as PlaywrightError
@@ -82,16 +83,19 @@ def _calculate_overall_percent_from_subjects(subjects: List[Dict[str, str]]) -> 
     return f"{percent:.2f}".rstrip("0").rstrip(".")
 
 
-def _extract_subject_rows(page) -> List[Dict[str, str]]:
-    tables = page.locator("table")
+def _extract_subject_rows_from_scope(scope) -> List[Dict[str, str]]:
+    tables = scope.locator("table")
     table_count = tables.count()
 
     for index in range(table_count):
         table = tables.nth(index)
-        table_text = table.inner_text()
+        try:
+            table_text = table.inner_text()
+        except Exception:
+            continue
         if not re.search(r"Subject", table_text, flags=re.IGNORECASE):
             continue
-        if not re.search(r"Classes\s*Held", table_text, flags=re.IGNORECASE):
+        if not re.search(r"Held", table_text, flags=re.IGNORECASE):
             continue
 
         rows = table.locator("tr")
@@ -138,11 +142,27 @@ def _extract_subject_rows(page) -> List[Dict[str, str]]:
     return []
 
 
+def _extract_subject_rows(page) -> List[Dict[str, str]]:
+    subjects = _extract_subject_rows_from_scope(page)
+    if subjects:
+        return subjects
+    for frame in page.frames:
+        subjects = _extract_subject_rows_from_scope(frame)
+        if subjects:
+            return subjects
+    return []
+
+
 def _launch_browser(playwright):
+    browser_args = [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-blink-features=AutomationControlled",
+    ]
     launch_attempts = [
-        ("bundled-chromium", {"headless": HEADLESS}),
-        ("chrome", {"headless": HEADLESS, "channel": "chrome"}),
-        ("msedge", {"headless": HEADLESS, "channel": "msedge"}),
+        ("bundled-chromium", {"headless": HEADLESS, "args": browser_args}),
+        ("chrome", {"headless": HEADLESS, "channel": "chrome", "args": browser_args}),
+        ("msedge", {"headless": HEADLESS, "channel": "msedge", "args": browser_args}),
     ]
 
     last_error = None
@@ -159,147 +179,248 @@ def _launch_browser(playwright):
 
 
 def fetch_overall_attendance() -> Dict[str, object]:
-    if not ERP_USERNAME or not ERP_PASSWORD:
-        raise RuntimeError("Missing ERP_USERNAME or ERP_PASSWORD in .env")
+    username = ERP_USERNAME.strip()
+    password = ERP_PASSWORD.strip()
+    if not username or not password:
+        raise RuntimeError("Missing ERP_USERNAME or ERP_PASSWORD in .env / GitHub Secrets")
 
     with sync_playwright() as playwright:
         browser = _launch_browser(playwright)
-        context = browser.new_context()
+        context = browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+            viewport={"width": 1366, "height": 768},
+        )
         page = context.new_page()
 
+        # Handle any alert or confirm dialogs automatically
+        def _handle_dialog(dialog):
+            print(f"ERP Dialog appeared: '{dialog.message}' -> accepting")
+            try:
+                dialog.accept()
+            except Exception:
+                pass
+
+        page.on("dialog", _handle_dialog)
+
+        # Capture all login/POST API responses for precise diagnostics
+        login_api_response = {"status": None, "body": ""}
+
+        def _on_response(res):
+            if "login" in res.url.lower() or res.request.method == "POST":
+                try:
+                    body = res.text()[:300]
+                    login_api_response["status"] = res.status
+                    login_api_response["body"] = body
+                    print(f"Network: [{res.request.method}] {res.url} -> HTTP {res.status}: {body}", flush=True)
+                except Exception as e:
+                    print(f"Network: [{res.request.method}] {res.url} -> HTTP {res.status} (could not read body: {e})", flush=True)
+
+        page.on("response", _on_response)
+        page.on("console", lambda msg: print(f"Browser Console [{msg.type}]: {msg.text}", flush=True))
+
         try:
-            print("Opening login page...")
-            page.goto(ERP_LOGIN_URL, timeout=60000, wait_until="networkidle")
+            # 1. Attempt direct API authentication first (bypasses corrupted/defaced UI on foreign IPs)
+            api_login_success = False
+            try:
+                login_api_url = ERP_LOGIN_URL.rstrip("/") + "/Default.aspx/Login"
+                api_res = context.request.post(
+                    login_api_url,
+                    headers={
+                        "Content-Type": "application/json; charset=utf-8",
+                        "X-Requested-With": "XMLHttpRequest",
+                    },
+                    data={"UserID": username, "PWD": password},
+                    timeout=20000,
+                )
+                print(f"Direct API Login response: status={api_res.status}, body={api_res.text()[:200]}", flush=True)
+                if api_res.status == 200:
+                    body = api_res.text()
+                    if '"d":"1"' in body or '"d":"2"' in body or "dbs" in body:
+                        print("Direct API authentication succeeded!", flush=True)
+                        api_login_success = True
+                    elif "check User Name" in body or "Invalid" in body:
+                        raise RuntimeError(
+                            f"Authentication failed: College portal returned '{body}'. "
+                            "Please check your ERP_USERNAME and ERP_PASSWORD in GitHub Secrets."
+                        )
+            except Exception as e:
+                if "Authentication failed:" in str(e):
+                    raise
+                print(f"Direct API authentication attempt: {e}. Falling back to UI login...", flush=True)
 
-            user_ok = _fill_first(
-                page,
-                [
-                    "input[name*='User'][type='text']",
-                    "input[id*='User'][type='text']",
-                    "input[type='text']",
-                ],
-                ERP_USERNAME,
-            )
+            if not api_login_success:
+                page.goto(ERP_LOGIN_URL, timeout=45000, wait_until="domcontentloaded")
 
-            pass_ok = _fill_first(
-                page,
-                [
-                    "input[name*='Pass'][type='password']",
-                    "input[id*='Pass'][type='password']",
-                    "input[type='password']",
-                ],
-                ERP_PASSWORD,
-            )
-
-            if not user_ok or not pass_ok:
-                raise RuntimeError(
-                    "Login fields were not found on ERP login page."
+                user_ok = _fill_first(
+                    page,
+                    [
+                        "#txtusername",
+                        "input[name='txtusername']",
+                        "input[name*='User' i][type='text']",
+                        "input[type='text']",
+                    ],
+                    username,
+                )
+                pass_ok = _fill_first(
+                    page,
+                    [
+                        "#txtpassword",
+                        "input[name='txtpassword']",
+                        "input[name*='Pass' i][type='password']",
+                        "input[type='password']",
+                    ],
+                    password,
                 )
 
-            clicked = _click_first(
-                page,
-                [
-                    "button:has-text('Login')",
-                    "button:has-text('Sign In')",
-                    "input[type='submit']",
-                    "text=Login",
-                ],
-            )
+                if not user_ok or not pass_ok:
+                    raise RuntimeError("Login fields were not found on ERP login page.")
 
-            if not clicked:
-                page.keyboard.press("Enter")
+                initial_url = page.url
 
-            print("Waiting after login...")
-            page.wait_for_timeout(5000)
+                clicked = _click_first(
+                    page,
+                    [
+                        "button.btn.blue",
+                        "button:has-text('Login')",
+                        "button[onclick*='login']",
+                        "input[type='submit']",
+                    ],
+                )
+                if not clicked:
+                    try:
+                        page.evaluate("() => typeof login === 'function' && login()")
+                        clicked = True
+                    except Exception:
+                        page.keyboard.press("Enter")
 
-            print("Opening attendance page...")
-            page.goto(
-                ERP_ATTENDANCE_URL,
-                timeout=60000,
-                wait_until="networkidle"
-            )
+                # Wait dynamically up to 25s for login submission and redirect
+                start_login = time.time()
+                login_success = False
+                while time.time() - start_login < 25:
+                    # When PageMethods.Login succeeds, the portal redirects to /Home/ or /Fee/...
+                    if page.url != initial_url:
+                        login_success = True
+                        break
 
-            page.wait_for_timeout(5000)
+                    # Check if server explicitly returned an error response
+                    api_body = login_api_response.get("body", "")
+                    if api_body and ("check User Name" in api_body or "Invalid" in api_body or "Error" in api_body):
+                        break
+
+                    page.wait_for_timeout(500)
+
+                if not login_success:
+                    page.screenshot(path="attendance_error.png")
+                    body_snippet = ""
+                    try:
+                        body_snippet = page.locator("body").inner_text()[:400].replace("\n", " ").strip()
+                        print(f"Page content after login attempt: {body_snippet}", flush=True)
+                    except Exception:
+                        pass
+
+                    err_text = ""
+                    try:
+                        alert_el = page.locator("#alert_container, #alert_div").first
+                        if alert_el.is_visible(timeout=500):
+                            err_text = alert_el.inner_text().replace("×", "").strip()
+                    except Exception:
+                        pass
+
+                    if not err_text and login_api_response.get("body"):
+                        err_text = login_api_response["body"]
+                    if not err_text and body_snippet:
+                        err_text = body_snippet
+
+                    err_detail = f" Server response: '{err_text}'." if err_text else ""
+                    raise RuntimeError(
+                        f"Authentication failed.{err_detail} URL did not change after login ({page.url}). "
+                        "Please verify ERP_USERNAME and ERP_PASSWORD in GitHub Secrets."
+                    )
+
+            # Session is established! Navigate to attendance page
+            page.wait_for_timeout(1000)
+            page.goto(ERP_ATTENDANCE_URL, timeout=45000, wait_until="domcontentloaded")
+
+            # Check if ERP redirected back to login (indicates invalid credentials or session rejection)
+            if "login" in page.url.lower():
+                page.screenshot(path="attendance_error.png")
+                # Check for error text on login page
+                err_text = ""
+                try:
+                    for sel in [".error", "#lblError", "[id*='error' i]", "[class*='alert' i]", "font[color='red']"]:
+                        el = page.locator(sel).first
+                        if el.is_visible(timeout=500):
+                            err_text = el.inner_text().strip()
+                            if err_text:
+                                break
+                except Exception:
+                    pass
+
+                err_detail = f" Message on page: '{err_text}'" if err_text else ""
+                raise RuntimeError(
+                    f"Authentication failed: ERP redirected back to login ({page.url}).{err_detail} "
+                    "Please verify ERP_USERNAME and ERP_PASSWORD in GitHub Secrets."
+                )
 
             _click_first(
                 page,
                 [
                     "button:has-text('Attendance')",
                     "a:has-text('Attendance')",
+                    "input[value*='Attendance' i]",
+                    "[id*='Attendance' i]",
+                    "span:has-text('Attendance')",
                     "text=Attendance",
                     "text=attandance",
                 ],
             )
 
-            page.wait_for_timeout(5000)
+            # Wait dynamically up to 25s for attendance table and percentage to load
+            start_time = time.time()
+            max_wait = 25
+            subjects = []
+            percent = ""
 
-            try:
-                page.wait_for_load_state("networkidle", timeout=30000)
-            except Exception:
-                pass
+            while time.time() - start_time < max_wait:
+                subjects = _extract_subject_rows(page)
+                try:
+                    body_text = page.locator("body").inner_text()
+                    percent = _extract_attendance_percent(body_text)
+                except Exception:
+                    if subjects:
+                        try:
+                            percent = _calculate_overall_percent_from_subjects(subjects)
+                        except Exception:
+                            percent = ""
 
-            print("=" * 60)
-            print("CURRENT URL:")
-            print(page.url)
-            print("=" * 60)
+                if subjects and percent:
+                    break
 
-            try:
-                page.screenshot(
-                    path="attendance_debug.png",
-                    full_page=True
-                )
-                print("Screenshot saved: attendance_debug.png")
-            except Exception as e:
-                print("Screenshot failed:", e)
+                page.wait_for_timeout(1000)
 
-            body_text = page.locator("body").inner_text()
-
-            print("=" * 60)
-            print("BODY PREVIEW")
-            print("=" * 60)
-            print(body_text[:5000])
-
-            try:
-                table_count = page.locator("table").count()
-                print("=" * 60)
-                print(f"TABLE COUNT: {table_count}")
-                print("=" * 60)
-            except Exception as e:
-                print("Could not count tables:", e)
-
-            subjects = _extract_subject_rows(page)
-
-            print("=" * 60)
-            print(f"SUBJECTS FOUND: {len(subjects)}")
-            print(subjects)
-            print("=" * 60)
-
-            percent = None
-
-            try:
-                percent = _extract_attendance_percent(body_text)
-                print("Attendance extracted from page:", percent)
-            except Exception as e:
-                print("Direct extraction failed:", e)
-
-            if not percent:
+            if not percent and subjects:
                 try:
                     percent = _calculate_overall_percent_from_subjects(subjects)
-                    print("Attendance calculated from subjects:", percent)
-                except Exception as e:
-                    print("Calculation from subjects failed:", e)
+                except Exception:
+                    pass
 
-            if not percent:
+            if not subjects or not percent:
+                try:
+                    page.screenshot(path="attendance_error.png")
+                    print("Attendance load incomplete. Saved debug screenshot to attendance_error.png")
+                except Exception:
+                    pass
+
+                if not HEADLESS:
+                    page.wait_for_timeout(5000)
+
                 raise RuntimeError(
-                    "Could not determine attendance. Check BODY PREVIEW and screenshot."
+                    f"Could not extract attendance data. Found {len(subjects)} subjects, percent='{percent}'. "
+                    f"Current URL: {page.url}"
                 )
 
-            return {
-                "percent": percent,
-                "source": page.url,
-                "subjects": subjects,
-            }
-
+            source = page.url
+            return {"percent": percent, "source": source, "subjects": subjects}
         finally:
             context.close()
             browser.close()
