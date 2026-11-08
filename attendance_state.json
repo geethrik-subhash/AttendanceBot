@@ -1,61 +1,61 @@
 {
-  "last_percent": "78.87",
-  "last_checked_at": "2026-10-22 21:22:48",
+  "last_percent": "81.35",
+  "last_checked_at": "2026-11-08 07:39:17",
   "subjects": {
     "Discrete Mathematics & Graph Theory": {
-      "held": 49,
-      "present": 38,
-      "percent": "77.6"
-    },
-    "UHV 2 \u2013 understanding harmony and Ethical human conduct": {
-      "held": 50,
-      "present": 39,
+      "held": 59,
+      "present": 46,
       "percent": "78.0"
     },
+    "UHV 2 \u2013 understanding harmony and Ethical human conduct": {
+      "held": 59,
+      "present": 48,
+      "percent": "81.4"
+    },
     "Digital Logic& Computer Organization": {
-      "held": 39,
-      "present": 30,
-      "percent": "76.9"
+      "held": 47,
+      "present": 38,
+      "percent": "80.9"
     },
     "Advanced Data Structures & Algorithm Analysis": {
-      "held": 61,
-      "present": 45,
-      "percent": "73.8"
+      "held": 71,
+      "present": 54,
+      "percent": "76.1"
     },
     "Object Oriented Programming Through Java": {
-      "held": 65,
-      "present": 49,
-      "percent": "75.4"
+      "held": 75,
+      "present": 58,
+      "percent": "77.3"
     },
     "Advanced Data Structures & Algorithm Analysis Lab": {
-      "held": 42,
-      "present": 36,
-      "percent": "85.7"
+      "held": 45,
+      "present": 39,
+      "percent": "86.7"
     },
     "Object Oriented Programming Through Java Lab": {
-      "held": 27,
-      "present": 21,
-      "percent": "77.8"
+      "held": 36,
+      "present": 30,
+      "percent": "83.3"
     },
     "Python Programming": {
-      "held": 47,
-      "present": 39,
-      "percent": "83.0"
+      "held": 56,
+      "present": 48,
+      "percent": "85.7"
     },
     "ASSOCIATION": {
-      "held": 22,
-      "present": 18,
-      "percent": "81.8"
+      "held": 28,
+      "present": 24,
+      "percent": "85.7"
     },
     "SELF LEARNING": {
-      "held": 13,
-      "present": 11,
-      "percent": "84.6"
+      "held": 15,
+      "present": 13,
+      "percent": "86.7"
     },
     "Quantitative Aptitude": {
-      "held": 11,
-      "present": 10,
-      "percent": "90.9"
+      "held": 13,
+      "present": 12,
+      "percent": "92.3"
     }
   }
 }
